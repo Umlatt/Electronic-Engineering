@@ -9,7 +9,7 @@
 #define BUTTON            4                                                                             // DEFINITION: The input for the pushbutton
 
 const int colour_white[3]       = {255, 255, 255};                                                      // CONSTANT: COLOUR - WHITE
-const int colour_orange[3]      = {255, 50, 0};                                                        // CONSTANT: COLOUR - ORANGE
+const int colour_orange[3]      = {255, 50, 0};                                                         // CONSTANT: COLOUR - ORANGE
 const int colour_nightlight[3]  = {255, 204, 102};                                                      // CONSTANT: COLOUR - ORANGE
 const int colour_red[3]         = {255, 0, 0};                                                          // CONSTANT: COLOUR - WHITE
 const int colour_yellow[3]      = {255, 255, 0};                                                        // CONSTANT: COLOUR - YELLOW
