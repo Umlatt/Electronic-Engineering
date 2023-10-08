@@ -5,7 +5,7 @@
 #endif
 
 // Which pin on the Arduino is connected to the NeoPixels?
-#define RING_SIZE         24                                                                            // DEFINITION: The amount of LEDs on the ring
+#define RING_SIZE         7                                                                             // DEFINITION: The amount of LEDs on the ring
 #define RING_PIN          6                                                                             // DEFINITION: The pin to which the tx/rx pin for the Neo Pixel is attached
 #define BUTTON            4                                                                             // DEFINITION: The input for the pushbutton
 
