@@ -187,9 +187,9 @@ void loop() {
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------> NOTES
 
-// Set Specific Pin         - bigpixels.setPixelColor(0, bigpixels.Color(0,50,0));
-// Clear all Pins           - bigpixels.clear();
-// Set all Pins             - bigpixels.fill(12582656, 0 ,24);
-// Set all Pin Brightness   - bigpixels.setBrightness(10);
+// Set Specific Pin         - ring.setPixelColor(0, ring.Color(0,50,0));
+// Clear all Pins           - ring.clear();
+// Set all Pins             - ring.fill(12582656, 0 ,24);
+// Set all Pin Brightness   - ring.setBrightness(10);
 // Code Notes               - https://learn.adafruit.com/adafruit-neopixel-uberguide/arduino-library-use
 // COLOURS                  - https://www.shodor.org/stella2java/rgbint.html
