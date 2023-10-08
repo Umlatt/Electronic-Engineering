@@ -8,11 +8,18 @@
 #define BUTTON           4                                                                              // DEFINITION: The pin where the button input is configured
 
 const int colour_white[3]       = {255, 255, 255};                                                      // CONSTANT: COLOUR - WHITE
-const int colour_yellow[3]      = {255, 100, 0};                                                        // CONSTANT: COLOUR - YELLOW
-const int colour_orange[3]      = {255, 50, 0};                                                         // CONSTANT: COLOUR - ORANGE
+
 const int colour_red[3]         = {255, 0, 0};                                                          // CONSTANT: COLOUR - RED
+const int colour_orange[3]      = {255, 40, 0};                                                         // CONSTANT: COLOUR - ORANGE
+const int colour_yellow[3]      = {255, 120, 0};                                                        // CONSTANT: COLOUR - YELLOW
 const int colour_green[3]       = {100, 255, 0};                                                        // CONSTANT: COLOUR - GREEN
 const int colour_blue[3]        = {0, 0, 255};                                                          // CONSTANT: COLOUR - BLUE
+const int colour_indigo[3]      = {63, 0 ,225};                                                         // CONSTANT: COLOUR - INDIGO
+const int colour_violet[3]      = {80,10,120};                                                         // CONSTANT: COLOUR - VIOLET
+
+const int colour_red_dim[3]     = {25, 0, 0};                                                           // CONSTANT: COLOUR - RED [DIM]
+const int colour_green_dim[3]   = {0, 25, 0};                                                           // CONSTANT: COLOUR - GREEN [DIM]
+const int colour_blue_dim[3]    = {0, 0, 25};                                                           // COMSTANT: COLOUR - BLUE [DIM]
 const int colour_turquoise[3]   = {0, 150, 200};                                                        // CONSTANT: COLOUR - TURQUOISE
 const int colour_off[3]         = {0,0,0};                                                              // CONSTANT: COLOUR - OFF
 
@@ -21,7 +28,7 @@ bool  buttonLastState = 0;                                                      
 Adafruit_NeoPixel ring = Adafruit_NeoPixel(RINGSIZE,   RINGPIN,   NEO_GRB + NEO_KHZ800);                // VARIABLE: A neo pixel ring to be managed
 float fade_fast = 0.6;                                                                                  // VARIABLE: A variable to define how fast the fade works
 float fade_slow = 0.99;                                                                                 // VARIABLE: A variable to define how fast the fade works
-float fade_speed = fade_slow;                                                                           // VARIABLE: A variable to define how fast the fade works
+float fade_speed = fade_fast;                                                                           // VARIABLE: A variable to define how fast the fade works
 int   delay_value = 20;                                                                                 // VARIABLE: A delay value 
 int   ringled[24][3] = {0};                                                                             // VARIABLE: A variable to hold the colour state of each LED on a ring
 int   rotate_right = 0;                                                                                 // VARIABLE: A variable to track a right rotation
@@ -69,7 +76,7 @@ void rotate_led_left(const int thecolour[3]){                                   
 
 void solid_light(const int thecolour[3]){
   for(int count = 0; count < RINGSIZE; count++ ){
-     memcpy(ringled[count],thecolour, sizeof(ringled[1]));
+  memcpy(ringled[count],thecolour, sizeof(ringled[1]));
   }
 }
 
@@ -82,39 +89,56 @@ void pulse_light(const int thecolour[3]){
     solid_light(thecolour);
   }
 }
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------> FUNCTIONS: MAIN
 
-void setup() {                                                                                          // FUNCTION: Initialise the program
-  pinMode(BUTTON, INPUT);                                                                               // DEBUG: Set up pin4 as input
-  ring.begin();                                                                                         //  0. This initializes the NeoPixel library.
-}                                                                                                       // FUNCTION END!
+void demo_rgb(){
+  solid_light(colour_off);
+  memcpy(ringled[0],colour_red_dim, sizeof(ringled[1]));
+  memcpy(ringled[4],colour_green_dim, sizeof(ringled[1]));
+  memcpy(ringled[1],colour_blue_dim, sizeof(ringled[1]));
+}
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------> FUNCTIONS: MAIN                                                                                                      // FUNCTION END!
 
 void status_update() {
   switch(status) {
    case 0  :
-      solid_light(colour_white);      
+      demo_rgb();  
       break;
    case 1  :
-      solid_light(colour_green);
+      solid_light(colour_red);
       break;
    case 2  :
       solid_light(colour_orange);
       break;
    case 3  :
-      rotate_led_right(colour_orange);
+      solid_light(colour_yellow);
       break;
    case 4  :
-      pulse_light(colour_red);
+      solid_light(colour_green);
       break;
    case 5  :
-      rotate_led_right(colour_red);
-      rotate_led_left(colour_red);
+      solid_light(colour_blue);
+      break;
+   case 6  :
+      solid_light(colour_indigo);
+      break;
+   case 7  :
+      solid_light(colour_violet);
+      break;
+   case 8  :
+      pulse_light(colour_white);
       break;
    default :
-      rotate_led_right(colour_white);
-      status = 0;
+      solid_light(colour_red);
+      status = 1;
     }
 }
+
+void setup() {                                                                                          // FUNCTION: Initialise the program
+  pinMode(BUTTON, INPUT);                                                                               // DEBUG: Set up pin4 as input
+  ring.begin();                                                                                         //  0. This initializes the NeoPixel library.
+
+} 
 
 void loop() {                                                                                           // FUNCTION: The main loop of the program
   fade_all();                                                                                           //  0. Run a fade on all LEDs
