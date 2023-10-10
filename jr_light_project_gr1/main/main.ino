@@ -17,9 +17,6 @@ const int colour_blue[3]        = {0, 0, 255};                                  
 const int colour_indigo[3]      = {63, 0 ,225};                                                         // CONSTANT: COLOUR - INDIGO
 const int colour_violet[3]      = {80,10,120};                                                         // CONSTANT: COLOUR - VIOLET
 
-const int colour_red_dim[3]     = {25, 0, 0};                                                           // CONSTANT: COLOUR - RED [DIM]
-const int colour_green_dim[3]   = {0, 25, 0};                                                           // CONSTANT: COLOUR - GREEN [DIM]
-const int colour_blue_dim[3]    = {0, 0, 25};                                                           // COMSTANT: COLOUR - BLUE [DIM]
 const int colour_turquoise[3]   = {0, 150, 200};                                                        // CONSTANT: COLOUR - TURQUOISE
 const int colour_off[3]         = {0,0,0};                                                              // CONSTANT: COLOUR - OFF
 
@@ -28,18 +25,18 @@ bool  buttonLastState = 0;                                                      
 Adafruit_NeoPixel ring = Adafruit_NeoPixel(RINGSIZE,   RINGPIN,   NEO_GRB + NEO_KHZ800);                // VARIABLE: A neo pixel ring to be managed
 float fade_fast = 0.6;                                                                                  // VARIABLE: A variable to define how fast the fade works
 float fade_slow = 0.99;                                                                                 // VARIABLE: A variable to define how fast the fade works
-float fade_speed = fade_fast;                                                                           // VARIABLE: A variable to define how fast the fade works
+float fade_speed = fade_slow;                                                                           // VARIABLE: A variable to define how fast the fade works
 int   delay_value = 20;                                                                                 // VARIABLE: A delay value 
 int   ringled[24][3] = {0};                                                                             // VARIABLE: A variable to hold the colour state of each LED on a ring
 int   rotate_right = 0;                                                                                 // VARIABLE: A variable to track a right rotation
 int   rotate_left = 0;                                                                                  // VARIABLE: A variable to track a left rotation
-int   rotate_speed = 1;                                                                                 // VARIABLE: A variable to configure the rotation speed.
+int   rotate_speed = 0.2;                                                                                 // VARIABLE: A variable to configure the rotation speed.
 int   rotate_count = 0;                                                                                 // VARIABLE: A variable used in conjunction with rotate_speed to allow for timing.
 int   R = 0;                                                                                            // VARIABLE: Used for positional arguments to make the 2D array more readable (RED)
 int   G = 1;                                                                                            // VARIABLE: Used for positional arguments to make the 2D array more readable (GREEN)
 int   B = 2;                                                                                            // VARIABLE: Used for positional arguments to make the 2D array more readable (BLUE)
 int   CURRENT = R;
-int   status = 0;                                                                                       // VARIABLE: A variable to track the status 
+int   status = 0;                                                                                       // VARIABLE: A variable to track the status
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------> FUNCTIONS: GENERAL
 
@@ -92,9 +89,9 @@ void pulse_light(const int thecolour[3]){
 
 void demo_rgb(){
   solid_light(colour_off);
-  memcpy(ringled[0],colour_red_dim, sizeof(ringled[1]));
-  memcpy(ringled[4],colour_green_dim, sizeof(ringled[1]));
-  memcpy(ringled[1],colour_blue_dim, sizeof(ringled[1]));
+  memcpy(ringled[0],colour_red, sizeof(ringled[1]));
+  memcpy(ringled[4],colour_green, sizeof(ringled[1]));
+  memcpy(ringled[1],colour_blue, sizeof(ringled[1]));
 }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------> FUNCTIONS: MAIN                                                                                                      // FUNCTION END!
@@ -126,7 +123,7 @@ void status_update() {
       solid_light(colour_violet);
       break;
    case 8  :
-      pulse_light(colour_white);
+      solid_light(colour_white);
       break;
    default :
       solid_light(colour_red);
@@ -137,6 +134,7 @@ void status_update() {
 void setup() {                                                                                          // FUNCTION: Initialise the program
   pinMode(BUTTON, INPUT);                                                                               // DEBUG: Set up pin4 as input
   ring.begin();                                                                                         //  0. This initializes the NeoPixel library.
+  ring.setBrightness(10);
 
 } 
 
